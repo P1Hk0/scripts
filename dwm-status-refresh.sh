@@ -79,7 +79,7 @@ get_time_until_charged() {
 get_battery_combined_percent() {
 
 	# get charge of all batteries, combine them
-	total_charge=$(expr $(acpi -b | awk '{print $4}' | grep -Eo "[0-9]+" | paste -sd+ | bc));
+    total_charge=$(expr $(acpi -b | awk '{print $4}' | grep -Eo "[0-9]+" | paste -sd+  )); 
 
 	# get amount of batteries in the device
 	battery_number=$(acpi -b | wc -l);
@@ -90,13 +90,46 @@ get_battery_combined_percent() {
 }
 
 get_battery_charging_status() {
-
+	 total_charge=$(expr $(acpi -b | awk '{print $4}' | grep -Eo "[0-9]+" | paste -sd+) / 10); 
 	if $(acpi -b | grep --quiet Discharging)
 	then
-		echo "BAT";
+		case $total_charge in
+			1)
+				echo ""
+				;;
+			
+			2)
+				echo ""
+				;;
+			3)
+				echo ""
+				;;
+			4)
+				echo ""
+				;;
+			5)
+				echo ""
+				;;
+			6)
+				echo ""
+				;;
+			7)
+				echo ""
+				;;
+			8)
+				echo ""
+				;;
+			9)
+				echo ""
+				;;
+			*)
+				echo "";
+				;;
+		esac
 	else # acpi can give Unknown or Charging if charging, https://unix.stackexchange.com/questions/203741/lenovo-t440s-battery-status-unknown-but-charging
-		echo "CHR";
+		echo "";
 	fi
+	
 }
 
 
@@ -116,11 +149,12 @@ print_bat(){
 		#echo -e "${charge}"
 	#fi
 	#echo "$(get_battery_charging_status) $(get_battery_combined_percent)%, $(get_time_until_charged )";
-	echo "$(get_battery_charging_status) $(get_battery_combined_percent)% $(get_time_until_charged )";
+	# echo "$(get_battery_charging_status) $(get_battery_combined_percent)%, $(get_time_until_charged )";
+	echo "$(get_battery_charging_status) $(get_battery_combined_percent)%";
 }
 
 print_date(){
-	date '+%Y年%m月%d日 %H:%M'
+	date '+%Y-%m-%d %H:%M %a'
 }
 
 show_record(){
@@ -156,7 +190,8 @@ get_bytes
 vel_recv=$(get_velocity $received_bytes $old_received_bytes $now)
 vel_trans=$(get_velocity $transmitted_bytes $old_transmitted_bytes $now)
 
-xsetroot -name "  💿 $(print_mem)M ⬇️ $vel_recv ⬆️ $vel_trans $(dwm_alsa) [ $(print_bat) ]$(show_record) $(print_date) "
+xsetroot -name "  $(print_mem)M | $(dwm_alsa) | $(print_bat) |$(show_record) $(print_date) "
+# xsetroot -name "  💿 $(print_mem)M ⬇️ $vel_recv ⬆️ $vel_trans $(dwm_alsa) [ $(print_bat) ]$(show_record) $(print_date) "
 
 # Update old values to perform new calculations
 old_received_bytes=$received_bytes
