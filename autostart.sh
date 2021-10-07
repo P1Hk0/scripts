@@ -1,15 +1,19 @@
 #!/bin/bash
 
-bash ./dwm-status.sh &
-bash ./chKeymap.sh
-bash ./wp-change.sh
+# bash ./dwm-status.sh &
+
+# maybe should modify the path in function updateBattery
+#please replace ./goblocks.go to ~/goblocks
+cd ~/goblocks; ./goblocks & 
+bash ~/scripts/chKeymap.sh
+bash ~/scripts/wp-change.sh
 # /bin/bash ~/scripts/wp-autochange.sh &
 #picom -o 0.95 -i 0.88 --detect-rounded-corners --vsync --blur-background-fixed -f -D 5 -c -b
 # picom -b
-bash ./tap-to-click.sh &
-bash ./inverse-scroll.sh &
+bash ~/scripts/tap-to-click.sh &
+bash ~/scripts/inverse-scroll.sh &
 nm-applet &
 # xfce4-power-manager &
 #xfce4-volumed-pulse &
 # bash ./run-mailsync.sh &
-bash ./autostart_wait.sh &
+bash ~/scripts/autostart_wait.sh &
