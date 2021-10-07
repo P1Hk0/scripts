@@ -25,12 +25,14 @@ const (
 	iconUp       = " "
 	iconDown     = "  "
 	iconBri      = " ﯦ "
-	iconKeyboard = " "
+	iconKeyboard = ""
+	iconPlug     = " "
+	iconVpn      = "嬨"
 )
 
 var (
 	iconTimeArr = [12]string{" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
-	iconBatArr  = [5]string{"", "", "", "", ""}
+	iconBatArr  = [5]string{" ", " ", " ", " ", " "}
 	iconVolArr  = [4]string{"", "", "墳", ""}
 	netDevMap   = map[string]struct{}{}
 	cpuOld, _   = cpu.Get()
@@ -82,6 +84,26 @@ func setStyle(style string) []string {
 		updateBattery(),
 		// briefStyle + datColor + "^",
 		updateDateTime(),
+		updateVpn(),
+	}
+}
+func updateVpn() string {
+	cmd := exec.Command("systemctl", "check", "clash.service")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			fmt.Printf("systemctl finished with non-zero: %v\n", exitErr)
+		} else {
+			fmt.Printf("failed to run systemctl: %v", err)
+			os.Exit(1)
+		}
+	}
+	fmt.Printf(string(out))
+	res := strings.Trim(string(out), "\n")
+	if res == "active" {
+		return iconVpn
+	} else {
+		return ""
 	}
 }
 func updateBri() string {
@@ -126,7 +148,7 @@ func updateKey() string {
 	}
 	fmt.Println(strings.Trim(string(layout), "\n"))
 	res := strings.Trim(string(layout), "\n")
-	return iconKeyboard + strings.ToUpper(res)
+	return iconKeyboard + " " + strings.ToUpper(res)
 }
 
 func getNetSpeed() (int, int) {
@@ -280,7 +302,8 @@ func updateBattery() string {
 		return iconBatArr[4] + " Full"
 	} else {
 		if isPlugged == true {
-			return getBatIcon(capacity) + " " + capacity + "%"
+			// return getBatIcon(capacity) + " " + capacity + "%"
+			return iconPlug + " " + capacity + "%"
 		} else {
 			return getBatIcon(capacity) + " " + capacity + "%"
 		}
