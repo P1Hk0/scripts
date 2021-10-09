@@ -27,7 +27,7 @@ const (
 	iconBri      = " ﯦ "
 	iconKeyboard = ""
 	iconPlug     = " "
-	iconVpn      = "嬨"
+	iconVpn      = " "
 )
 
 var (
