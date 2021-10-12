@@ -3,7 +3,7 @@
 # bash ./dwm-status.sh &
 
 # maybe should modify the path in function updateBattery
-#please replace ./goblocks.go to ~/goblocks
+#please link ./goblocks.go to ~/goblocks
 cd ~/goblocks; ./goblocks & 
 bash ~/scripts/chKeymap.sh
 # bash ~/scripts/wp-change.sh

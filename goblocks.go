@@ -313,7 +313,9 @@ func updateBattery() string {
 func getBatIcon(capacity string) string {
 	var res string
 	capacityInt, _ := strconv.ParseInt(capacity, 10, 32)
-	if capacityInt >= 75 {
+	if capacityInt >= 90 {
+		res = iconBatArr[4]
+	} else if capacityInt >= 75 {
 		res = iconBatArr[3]
 	} else if capacityInt > 50 {
 		res = iconBatArr[2]
