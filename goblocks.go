@@ -40,13 +40,14 @@ var (
 	txOld       = 0
 	wlan        = "wlan0"
 	lan         = "lo"
-	style       = "background"
-	// netColor    = "#d08070"
-	// cpuColor    = "#ebcb8b"
-	// memColor    = "#a3be8c"
-	// volColor    = "#5e81ac"
-	// batColor    = "#88c0d0"
-	// datColor    = "#b48ead"
+	// style       = "background"
+	style    = "foreground"
+	netColor = "#d08070"
+	cpuColor = "#ebcb8b"
+	memColor = "#a3be8c"
+	volColor = "#5e81ac"
+	batColor = "#88c0d0"
+	datColor = "#b48ead"
 )
 
 func main() {
@@ -62,28 +63,29 @@ func main() {
 }
 
 func setStyle(style string) []string {
-	// var briefStyle string
-	// if style == "background" {
-	// 	briefStyle = "^b"
-	// } else {
-	// 	briefStyle = "^c"
-	// }
+	var briefStyle string
+	if style == "background" {
+		briefStyle = "^b"
+	} else {
+		briefStyle = "^c"
+	}
 
 	return []string{
-		// briefStyle + netColor + "^",
+		briefStyle + netColor + "^",
 		// updateNet(),
 		updateBri(),
+		briefStyle + netColor + "^",
 		updateKey(),
-		// briefStyle + cpuColor + "^",
+		briefStyle + cpuColor + "^",
 		updateCPU(),
-		// briefStyle + memColor + "^",
 		updateMem(),
-		// briefStyle + volColor + "^",
+		briefStyle + volColor + "^",
 		updateVolume(),
-		// briefStyle + batColor + "^",
+		briefStyle + batColor + "^",
 		updateBattery(),
-		// briefStyle + datColor + "^",
+		briefStyle + datColor + "^",
 		updateDateTime(),
+		briefStyle + memColor + "^",
 		updateVpn(),
 	}
 }
