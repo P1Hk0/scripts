@@ -1,13 +1,13 @@
 # archlinux安装(kde)
 
-### 安装kde
+## 安装kde
 
 - install `plasma-meta` dont't install other, too heavy
 - [安装教程](https://www.youtube.com/watch?v=BfqbFrE--Bc)
 
 ## clash代理()
 
-#### 直接执行
+### 直接执行
 
 ```yaml
 cd /etc/ && mkdir clash && cd
@@ -35,7 +35,7 @@ WantedBy=multi-user.target
 " >> /usr/lib/systemd/system/clash.service
 ```
 
-#### 以上代码运行完毕后执行
+### 以上代码运行完毕后执行
 
 ```yaml
 cd /usr/bin
@@ -129,9 +129,9 @@ Xft.dpi:120
    
 4. 编辑好 后 source .zshrc
 
-###  手机端与电脑数据交互
+##  手机端与电脑数据交互
 
-####  1. 安装resilio sync
+###  1. 安装resilio sync
 
 ```
 1. yay -S rslsync
@@ -153,11 +153,11 @@ rslsync --config ~/.config/rslsync/rslsync.conf（在zsh设置快捷键 sync）
 
 用sync只能传送文件，如果要复制文字只能传送邮箱 
 
-#### 2. 使用telegram
+### 2. 使用telegram
 
 连接的时候点击左下角的圈圈，选择代理，代理的地址如设置clash的HTTPdigit一样
 
-#### 3. onedrive
+### 3. onedrive
 
 ```
 sudo pacman -S onedrive-git
@@ -168,16 +168,19 @@ sudo pacman -S onedrive-git
 - 建议只选择一个文件进行同步，因为同步的方式是需要下载到本机。创建一个文件夹linux-data选择同步
 - 每次修改玩输入`onedrive`自动同步
 
-### 资源管理器
+## 资源管理器
 - htop
 
-### dwm
-#### dependency
+## dwm
+### 安装
+1. 编译之后可使用
+2. 需要在登录界面添加启动图标
+### dependency
 1. alsa-utils
 2. acpi-tools
 3. pamixer
 
-#### status bar
+### status bar
 
 - 可用两种，在`/scripts/autostart.sh`中修改启动设置
 
@@ -185,11 +188,10 @@ sudo pacman -S onedrive-git
    - 可能需要修改电池方法里的路径（如果电池不显示）
 2. 使用`dwm-status.sh`
 
-- **在dwm中设置快捷键启动的脚本需要设置启动权限才能启动**
+### 脚本管理
+- 在dwm中设置快捷键启动的脚本需要设置启动权限才能启动
 
-  - ```shell
-    chmod 755 scripts.sh
-    ```
+    `chmod 755 scripts.sh`
 
 - 设置音量的脚本需要先安装`acpi`并且在`/etc/systemd/system/`中创建一个`addper.service`并添加一下内容
 
@@ -215,3 +217,34 @@ sudo pacman -S onedrive-git
   ```
 
   目的是开机自动设置目标文件的权限才能修改亮度
+
+## mysql(mariaDb)
+### 安装mariadb，几乎与mysql一样
+`sudo pacman -S dbmaria`
+
+###　安装服务、初始化
+`sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql`
+
+###　加入守护进程。开机自动启动服务
+`systemctl enable mysqld`
+
+###　启动服务
+`systemctl start mysqld`
+
+### 修改登录密码
+`sudo mysqladmin -u root password 123456`
+
+### 登录mysql
+`mysql -uroot -p＃　以下为mysql语法，末尾需要加上分号`
+
+### 打开mysql数据
+`use mysql;`
+
+### 给用户加权限
+`GRANT ALL PRIVILEGES ON *.* TO root@% IDENTIFIED BY 123456;`
+
+### 退出
+`exit;`
+
+### 安装dbeaver可视化管理
+`sudo pacman -S dbeaver`
