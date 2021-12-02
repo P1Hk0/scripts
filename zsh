@@ -147,3 +147,4 @@ alias lg="lazygit"
 alias bp='bpytop'
 alias pf='poweroff'
 alias rb='reboot'
+alias dp="docker ps"

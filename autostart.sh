@@ -13,6 +13,7 @@ picom -b
 bash ~/scripts/tap-to-click.sh &
 bash ~/scripts/inverse-scroll.sh &
 nm-applet &
+fcitx &
 # xfce4-power-manager &
 #xfce4-volumed-pulse &
 # bash ./run-mailsync.sh &

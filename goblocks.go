@@ -41,13 +41,15 @@ var (
 	wlan        = "wlan0"
 	lan         = "lo"
 	// style       = "background"
-	style    = "foreground"
-	netColor = "#d08070"
-	cpuColor = "#ebcb8b"
-	memColor = "#a3be8c"
-	volColor = "#5e81ac"
-	batColor = "#88c0d0"
-	datColor = "#b48ead"
+	style      = "foreground"
+	lightColor = "#d08070"
+	keyColor   = "#40E0D0"
+	cpuColor   = "#ebcb8b"
+	memColor   = "#a3be8c"
+	volColor   = "#5e81ac"
+	batColor   = "#88c0d0"
+	datColor   = "#b48ead"
+	vpnColor   = "#ffffff"
 )
 
 func main() {
@@ -71,13 +73,14 @@ func setStyle(style string) []string {
 	}
 
 	return []string{
-		briefStyle + netColor + "^",
 		// updateNet(),
+		briefStyle + lightColor + "^",
 		updateBri(),
-		briefStyle + netColor + "^",
+		briefStyle + keyColor + "^",
 		updateKey(),
 		briefStyle + cpuColor + "^",
 		updateCPU(),
+		briefStyle + memColor + "^",
 		updateMem(),
 		briefStyle + volColor + "^",
 		updateVolume(),
@@ -85,7 +88,7 @@ func setStyle(style string) []string {
 		updateBattery(),
 		briefStyle + datColor + "^",
 		updateDateTime(),
-		briefStyle + memColor + "^",
+		briefStyle + vpnColor + "^",
 		updateVpn(),
 	}
 }
@@ -317,11 +320,11 @@ func getBatIcon(capacity string) string {
 	capacityInt, _ := strconv.ParseInt(capacity, 10, 32)
 	if capacityInt >= 90 {
 		res = iconBatArr[4]
-	} else if capacityInt >= 75 {
+	} else if capacityInt >= 60 {
 		res = iconBatArr[3]
-	} else if capacityInt > 50 {
+	} else if capacityInt > 40 {
 		res = iconBatArr[2]
-	} else if capacityInt > 25 {
+	} else if capacityInt > 20 {
 		res = iconBatArr[1]
 	} else {
 		res = iconBatArr[0]
