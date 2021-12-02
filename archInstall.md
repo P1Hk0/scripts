@@ -1,5 +1,40 @@
 # archlinux安装(kde)
 
+## 安装arch
+https://www.youtube.com/watch?v=pHzROIf0Fuc
+https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/basic_install
+### 准备
+1. rufus烧录
+2. 根据电脑机型进入bios关闭secure boot，启动方式uefi，硬盘启动顺序
+### 安装
+`setfont /usr/share/kbd/consolefonts/LatGrkCyr-12x22.psfu.gz`
+1. 确保uefi`ls /sys/firmware/efi/efivars`
+2. 连接网络
+```
+ip link set wlan0 up #比如无线网卡看到叫 wlan0
+iwctl                           #进入交互式命令行
+device list                     #列出设备名，比如无线网卡看到叫 wlan0
+station wlan0 scan              #扫描网络
+station wlan0 get-networks      #列出网络 比如想连接CMCC-5AQ7这个无线
+station wlan0 connect CMCC-5AQ7 #进行连接 输入密码即可
+exit                            #成功后exit退出
+dhcpcd
+ping baidu.com
+```
+3. 系统时钟
+```
+timedatectl set-ntp true    #将系统时间与网络时间进行同步
+timedatectl status          #检查服务状态
+```
+4. 换源
+`vim /etc/pacman.d/mirrorlist`
+
+5. 分区
+```
+fdisk -l 
+fdisk /dev/.. # 进入分区了的磁盘里
+```
+
 ## 安装kde
 
 - install `plasma-meta` dont't install other, too heavy
